@@ -1,8 +1,7 @@
 package com.tutorial.spring.dependencyinjection.mail;
 
-import org.apache.juli.logging.Log;
-import org.apache.juli.logging.LogFactory;
-import org.springframework.stereotype.Component;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /*
  * When we have multiple components, use this first
