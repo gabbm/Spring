@@ -6,7 +6,7 @@
 	<groupId>com.tutorial.spring</groupId>
 	<artifactId>dependencyinjection</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>di-spring-tutorial</name>
 	<description>Tutorial project for Spring Dependency Injection</description>
@@ -48,6 +48,28 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
+		</dependency>
+		
+		<!-- Spring Boot actuator -->
+		<!-- Monitoring application endpoints (urls with information) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		
+		<!-- For using JSP and JSTL-->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-solr</artifactId>
 		</dependency>
 	</dependencies>
 
