@@ -1,15 +1,25 @@
 package com.tutorial.spring.dependencyinjection.controllers;
 
+import javax.validation.Valid;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tutorial.spring.dependencyinjection.dto.SignupForm;
+import com.tutorial.spring.dependencyinjection.services.UserService;
+import com.tutorial.spring.dependencyinjection.util.Utilities;
+import com.tutorial.spring.dependencyinjection.validators.SignupFormValidator;
 
 /*
  * Controller writes in the response, redirecting to a view
@@ -22,6 +32,22 @@ public class ControllerExample {
 	@Value("${app.name}")
 	private String appName;
 	
+	private UserService userService;
+	private SignupFormValidator signupFormValidator;
+	
+	@Autowired
+	public ControllerExample(UserService userService, SignupFormValidator signupFormValidator){
+		this.userService = userService;
+		this.signupFormValidator = signupFormValidator;
+	}
+	
+	/*
+	 * Use custom validator for model attributes "signupForm"
+	 */
+	@InitBinder("signupForm")
+	protected void initSignupBinder(WebDataBinder binder){
+		binder.setValidator(signupFormValidator);
+	}
 	
 	/* 
 	 * If we only want to redirect to View we should add the ViewController in MvcConfig class
@@ -52,9 +78,20 @@ public class ControllerExample {
 	}
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-	public String signup(@ModelAttribute("signupForm") SignupForm signupForm){
+	public String signup(@ModelAttribute("signupForm") @Valid SignupForm signupForm,
+			BindingResult result, RedirectAttributes redirectAttributes){
 		
-		log.info(signupForm.toString());
+		if(result.hasErrors()){
+			return "signup";
+		}
+		
+		userService.signup(signupForm);
+		
+		/*
+		 * Temporary messages sent to the view
+		 */
+		Utilities.flash(redirectAttributes, "success",
+				"signupSuccess");
 		
 		/*
 		 * Redirect current view to home url (/) 

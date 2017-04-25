@@ -7,8 +7,10 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
+@EnableTransactionManagement
 public class DiSpringTutorialApplication {
 
 	private static final Log log = LogFactory.getLog(DiSpringTutorialApplication.class);

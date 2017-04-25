@@ -6,22 +6,26 @@
 	</div>
 	
 	<div class="panel-body">
-		<form:form modelAttribute="signupForm" role="form">
+		<c:if test="${param.error != null}">
+			<div class="alert alert-danger">
+				Invalid username and password
+			</div>
+		</c:if>
+		
+		<c:if test="${param.logut != null}">
+			<div class="alert alert-danger">
+				You have been logged out
+			</div>
+		</c:if>
+	
+		<form:form role="form" method="post">
 			
 			<form:errors />
 			
 			<div class="form-group">
 				<form:label path="email">Email address</form:label>
 				<form:input path="email" type="email" class="form-control" placeholer="Entry email" />
-				<form:errors cssClass="error" path="email"/>
-				<p class="help-block">Enter a unique email address. It will also be your login id.</p>
-			</div>
-			
-			<div class="form-group">
-				<form:label path="name">Name</form:label>
-				<form:input path="name" class="form-control" placeholder="Enter name" />
-				<form:errors cssClass="error" path="name"/>
-				<p class="help-block">Enter your display name.</p>
+				<p class="help-block">Enter your email address.</p>
 			</div>
 			
 			<div class="form-group">
@@ -29,8 +33,19 @@
 				<form:password path="password" class="form-control" placeholder="Password" />
 				<form:errors cssClass="error" path="password"/>
 			</div>
+			
+			<div class="form-group">
+				<div class="checkbox">
+					<label>
+						<input name="remember-me" type="checkbox"> Remember me
+					</label>
+				</div>
+				<form:label path="password">Password</form:label>
+				<form:password path="password" class="form-control" placeholder="Password" />
+				<form:errors cssClass="error" path="password"/>
+			</div>
 		
-			<button type="submit" class="btn btn-default">Submit</button>
+			<button type="submit" class="btn btn-primary">Sign In</button>
 			
 		</form:form>
 	</div>
