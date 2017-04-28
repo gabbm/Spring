@@ -47,6 +47,8 @@
 		
 			<button type="submit" class="btn btn-primary">Sign In</button>
 			
+			<a class="btn btn-default" href="/forgot-password">Forgot password</a>
+			
 		</form:form>
 	</div>
 </div>

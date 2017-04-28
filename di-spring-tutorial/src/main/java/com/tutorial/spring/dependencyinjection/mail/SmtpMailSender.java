@@ -7,6 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 
 /*
  * When we have multiple components, use this first
@@ -46,8 +47,12 @@ public class SmtpMailSender implements MailSender {
 	}
 	
 	@Override
+	@Async
 	public void send(String to, String subject, String body) throws MessagingException{
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		
+		log.info("Sending SMTP mail from thread " + Thread.currentThread().getName());
+		
 		MimeMessageHelper mimeMessageHelper;
 		
 		mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);

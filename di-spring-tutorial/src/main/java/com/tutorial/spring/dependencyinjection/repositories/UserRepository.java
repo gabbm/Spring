@@ -8,7 +8,7 @@ import com.tutorial.spring.dependencyinjection.entities.User;
 public interface UserRepository extends JpaRepository<User, Long>{
 	
 	/*
-	 * Spring creates it automatically parsing the name
+	 * Spring Data creates it automatically parsing the name
 	 * We can use the @Query annotation to write the JPA query
 	 * We can also use the @Query annotation to write SQL queries enabling nativeQuery=true
 	 * We also can use named parameters instead ?x, example --> :email
@@ -16,4 +16,6 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	//User findByEmail(String email);
 	@Query("select u from Users u where u.email = ?1")
 	User findByEmail(String email);
+
+	User findByForgotPasswordCode(String forgotPasswordCode);
 }

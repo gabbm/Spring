@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.tutorial.spring.dependencyinjection.entities.User;
+import com.tutorial.spring.dependencyinjection.entities.User.Role;
 
 public class UserDetailsImpl implements UserDetails{
 
@@ -29,7 +30,12 @@ public class UserDetailsImpl implements UserDetails{
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Collection<GrantedAuthority> authorities =  new HashSet<GrantedAuthority>(1);
+		Collection<GrantedAuthority> authorities =  new HashSet<GrantedAuthority>(
+				user.getRoles().size() + 1);
+		
+		for(Role role : user.getRoles()){
+			authorities.add(new SimpleGrantedAuthority("ROLE_" + role.name()));
+		}
 		
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 		
